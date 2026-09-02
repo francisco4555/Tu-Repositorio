@@ -1,0 +1,198 @@
+*{box-sizing:border-box}
+:root{
+  --bg:#f3f0e8;
+  --ink:#0a0a0a;
+  --orange:#ff5729;
+  --blue:#1763ff;
+  --road:#deddd7;
+  --outline:#d4d1ca;
+}
+html{scroll-behavior:smooth}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+body{overflow-x:hidden}
+.site-header{
+  height:82px;border-bottom:1px solid #222;display:flex;align-items:center;
+  padding:0 46px;gap:34px;letter-spacing:3px;position:relative;z-index:20;
+  background:rgba(243,240,232,.94);backdrop-filter:blur(6px)
+}
+.logo{font-size:29px;letter-spacing:-2px;font-weight:800;color:inherit;text-decoration:none}
+.logo span{color:var(--orange)}
+.tag{font-size:12px}
+nav{margin-left:auto;display:flex;gap:34px}
+nav a{color:inherit;text-decoration:none;font-size:12px;position:relative}
+nav a:after{content:"";position:absolute;left:0;bottom:-7px;width:100%;height:1px;background:#111;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+nav a:hover:after{transform:scaleX(1)}
+
+.hero{
+  height:1220px;min-height:calc(100vh - 82px);position:relative;overflow:hidden;
+  padding:350px 46px 0;isolation:isolate
+}
+.ghost{
+  position:absolute;top:115px;left:-25px;font-size:180px;font-weight:700;
+  color:transparent;-webkit-text-stroke:1px var(--outline);
+  white-space:nowrap;letter-spacing:-10px;z-index:-1;
+  animation:ghostIn 1.2s cubic-bezier(.22,1,.36,1) both, ghostDrift 9s ease-in-out 1.2s infinite alternate
+}
+.copy{position:relative;z-index:3;width:min(51%,720px)}
+.name{
+  font-size:12px;font-weight:700;letter-spacing:3px;margin:0 0 32px;
+  animation:fadeUp .8s .12s both
+}
+h1{
+  font-size:72px;line-height:.86;letter-spacing:-5px;margin:0;font-weight:800;
+  animation:fadeUp .9s .22s both
+}
+h1 em{font-family:Georgia,"Times New Roman",serif;font-weight:400}
+.desc{
+  max-width:610px;font-size:17px;line-height:1.55;margin-top:28px;
+  animation:fadeUp .9s .34s both
+}
+.cta{
+  margin-top:35px;width:160px;height:160px;border-radius:50%;
+  background:var(--orange);color:white;text-decoration:none;display:flex;
+  align-items:center;padding:20px;font-size:12px;font-weight:700;letter-spacing:1px;
+  position:relative;transition:transform .3s ease,box-shadow .3s ease;
+  animation:popIn .8s .48s both
+}
+.cta b{
+  font-size:34px;position:absolute;right:18px;top:58px;
+  transition:transform .3s cubic-bezier(.22,1,.36,1)
+}
+.cta:hover{transform:translateY(-6px) rotate(-2deg);box-shadow:0 18px 35px rgba(0,0,0,.12)}
+.cta:hover b{transform:translate(8px,8px)}
+
+.portrait{
+  position:absolute;z-index:4;right:65px;top:390px;width:470px;height:590px;
+  animation:portraitIn 1s .28s cubic-bezier(.22,1,.36,1) both;
+  will-change:transform
+}
+.oval{
+  position:absolute;left:35px;top:0;width:390px;height:545px;
+  border:1.5px solid #111;border-radius:50%;overflow:hidden;background:#202020
+}
+.oval img{
+  display:block;width:100%;height:100%;object-fit:cover;object-position:center 18%;
+  filter:grayscale(1) contrast(1.04);transform:scale(1.025);
+  transition:transform .8s cubic-bezier(.22,1,.36,1),filter .5s ease
+}
+.portrait:hover .oval img{transform:scale(1.065);filter:grayscale(1) contrast(1.1)}
+.portrait:after{
+  content:"";position:absolute;inset:16px 0 35px 15px;border:1.5px dashed #111;
+  border-radius:50%;transform:rotate(-10deg);z-index:-1;
+  animation:ringPulse 5s ease-in-out infinite alternate
+}
+.pill{
+  position:absolute;border:1px solid #111;border-radius:20px;background:var(--bg);
+  padding:9px 16px;font-size:10px;letter-spacing:1px;white-space:nowrap
+}
+.p1{left:-20px;top:110px;animation:floatA 3.8s ease-in-out infinite}
+.p2{right:-30px;top:230px;animation:floatB 4.3s ease-in-out infinite}
+.p3{left:30px;bottom:75px;animation:floatC 3.5s ease-in-out infinite}
+.role{
+  position:absolute;right:-10px;bottom:20px;background:#0b0b0b;color:white;
+  padding:18px 22px;font-size:11px;letter-spacing:1.5px;white-space:nowrap;
+  animation:fadeUp .8s .8s both
+}
+.route{
+  position:absolute;left:0;bottom:30px;width:100%;height:330px;z-index:1;
+  overflow:visible;pointer-events:none
+}
+.road{fill:none;stroke:var(--road);stroke-width:28;vector-effect:non-scaling-stroke}
+.dash{
+  fill:none;stroke:var(--blue);stroke-width:4;stroke-dasharray:14 15;
+  stroke-linecap:butt;vector-effect:non-scaling-stroke;
+  animation:drive 1.05s linear infinite
+}
+.anchor{position:absolute;bottom:0}
+
+@keyframes drive{to{stroke-dashoffset:-58}}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(26px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes popIn{
+  from{opacity:0;transform:scale(.72) rotate(-8deg)}
+  to{opacity:1;transform:scale(1) rotate(0)}
+}
+@keyframes portraitIn{
+  from{opacity:0;transform:translateY(36px) scale(.94)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes ghostIn{
+  from{opacity:0;transform:translateX(-80px)}
+  to{opacity:1;transform:translateX(0)}
+}
+@keyframes ghostDrift{
+  from{transform:translateX(0)}
+  to{transform:translateX(34px)}
+}
+@keyframes ringPulse{
+  from{transform:rotate(-10deg) scale(1)}
+  to{transform:rotate(-6deg) scale(1.02)}
+}
+@keyframes floatA{
+  0%,100%{transform:translate(0,0) rotate(0)}
+  50%{transform:translate(8px,-10px) rotate(-2deg)}
+}
+@keyframes floatB{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(-9px,8px)}
+}
+@keyframes floatC{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(7px,-7px)}
+}
+
+@media(max-width:1050px){
+  .hero{padding-top:300px}
+  .ghost{font-size:145px}
+  h1{font-size:64px}
+  .portrait{right:25px;transform:scale(.92);transform-origin:top right}
+}
+@media(max-width:850px){
+  .site-header{padding:0 20px;height:72px}
+  .tag{display:none}
+  nav{gap:14px}
+  nav a{font-size:10px;letter-spacing:1.6px}
+  .hero{height:auto;min-height:1250px;padding:210px 22px 0}
+  .ghost{top:70px;font-size:100px;letter-spacing:-6px}
+  .copy{width:100%}
+  h1{font-size:58px}
+  .desc{font-size:16px;max-width:520px}
+  .portrait{
+    top:690px;right:50%;width:380px;height:520px;
+    transform:translateX(50%);animation:portraitInMobile 1s .28s cubic-bezier(.22,1,.36,1) both
+  }
+  .oval{left:30px;width:320px;height:450px}
+  .portrait:after{inset:16px 0 30px 14px}
+  .route{height:220px;bottom:10px}
+  .role{right:0;bottom:25px;font-size:9px;padding:15px}
+  .p1{left:-4px}
+  .p2{right:-5px}
+  .p3{left:24px;bottom:58px}
+}
+@media(max-width:480px){
+  .site-header{padding:0 14px}
+  .logo{font-size:25px}
+  nav{gap:10px}
+  nav a{font-size:9px;letter-spacing:1.2px}
+  .hero{min-height:1190px;padding:180px 18px 0}
+  .ghost{font-size:76px;top:62px}
+  .name{font-size:10px;letter-spacing:2.3px;margin-bottom:24px}
+  h1{font-size:50px}
+  .desc{font-size:15px}
+  .cta{width:138px;height:138px}
+  .portrait{top:650px;width:340px}
+  .oval{left:30px;width:280px;height:405px}
+  .role{right:10px}
+}
+
+@keyframes portraitInMobile{
+  from{opacity:0;transform:translateX(50%) translateY(36px) scale(.94)}
+  to{opacity:1;transform:translateX(50%) translateY(0) scale(1)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}

@@ -92,6 +92,16 @@
     g.userData = { len: 12.5 };
     return g;
   }
+  function makeMoto() {
+    const g = new T.Group();
+    box(1.6, 0.35, 0.4, C.ink, 0, 0.7, 0, g);
+    box(0.7, 0.5, 0.5, C.orange, 0.3, 1.0, 0, g);
+    box(0.4, 0.8, 0.4, C.blue, -0.2, 1.45, 0, g);
+    const h = new T.Mesh(new T.SphereGeometry(0.22, 10, 8), mat(C.white)); h.position.set(-0.2, 2.0, 0); g.add(h);
+    wheel(0.75, 0, 0.38, g); wheel(-0.75, 0, 0.38, g);
+    shadow(1.9, 0.8, g); g.userData = { len: 1.9 };
+    return g;
+  }
   function makePerson() {
     const g = new T.Group();
     const shirt = [C.orange, C.blue, 0x2f8f5b, 0x8a4fd1, C.ink, 0xd9a400][Math.random() * 6 | 0];
@@ -178,6 +188,50 @@
       }
     });
 
+    // ---- scenery: buildings, trees, lamp posts, pylons ----
+    const pal = [0xe4dfd2, 0xd2cdc0, 0x1b1b1b, C.blue, C.orange, 0xf7f4ec];
+    const at = (u, off) => {
+      const p = curve.getPointAt(u), t = curve.getTangentAt(u);
+      return { x: p.x + t.z * off, z: p.z - t.x * off, ang: Math.atan2(t.z, t.x) };
+    };
+    for (let i = 0; i < 26; i++) {
+      const u = 0.02 + (i / 26) * 0.96, q = at(u, 10.5 + Math.random() * 3);
+      const w = 4 + Math.random() * 3, d = 4 + Math.random() * 2.5, h = 3 + Math.random() * 5.5;
+      const b = new T.Group();
+      box(w, h, d, pal[Math.random() * pal.length | 0], 0, h / 2, 0, b);
+      box(w + 0.3, 0.3, d + 0.3, C.ink, 0, h + 0.15, 0, b);
+      for (let r = 1; r < h - 0.8; r += 1.3) box(w + 0.05, 0.3, d + 0.05, 0x9fb0c4, 0, r + 0.4, 0, b);
+      b.position.set(q.x, 0, q.z); b.rotation.y = -q.ang;
+      roadGroup.add(b);
+    }
+    for (let i = 0; i < 34; i++) {
+      const side = i % 2 ? 1 : -1, q = at((i + 0.5) / 34, side * (7.2 + Math.random() * 0.8));
+      const tr = new T.Group();
+      box(0.3, 1.6, 0.3, 0x6b4a2a, 0, 0.8, 0, tr);
+      const k = new T.Mesh(new T.IcosahedronGeometry(1.3 + Math.random() * 0.5, 0), mat([0x2f8f5b, 0x3fa56a, 0x5bb36e][i % 3]));
+      k.position.y = 2.7; tr.add(k);
+      tr.position.set(q.x, 0, q.z);
+      roadGroup.add(tr);
+    }
+    for (let i = 0; i < 12; i++) {
+      const side = i % 2 ? 1 : -1, q = at((i + 0.3) / 12, side * 5.3);
+      const lp = new T.Group();
+      box(0.18, 4.2, 0.18, C.ink, 0, 2.1, 0, lp);
+      box(1.3, 0.16, 0.2, C.ink, -side * 0.6, 4.2, 0, lp);
+      box(0.4, 0.15, 0.3, 0xfff2b0, -side * 1.2, 4.1, 0, lp);
+      lp.position.set(q.x, 0, q.z); lp.rotation.y = -q.ang;
+      roadGroup.add(lp);
+    }
+    [0.18, 0.5, 0.84].forEach(u => {
+      const q = at(u, 8.2), py = new T.Group();
+      box(0.35, 9, 0.35, C.orange, -0.8, 4.5, -0.8, py); box(0.35, 9, 0.35, C.orange, 0.8, 4.5, -0.8, py);
+      box(0.35, 9, 0.35, C.orange, -0.8, 4.5, 0.8, py); box(0.35, 9, 0.35, C.orange, 0.8, 4.5, 0.8, py);
+      box(7, 0.3, 0.3, C.ink, 0, 8.6, 0, py); box(5, 0.3, 0.3, C.ink, 0, 7.2, 0, py);
+      box(1.8, 0.2, 1.8, C.ink, 0, 4.5, 0, py);
+      py.position.set(q.x, 0, q.z); py.rotation.y = -q.ang;
+      roadGroup.add(py);
+    });
+
     // vehicles: [maker, lane(+1 forward / -1 back), u0, speed(u/sec)]
     const vs = [
       [() => makeTruck(C.white), 1, 0.05, 0.020],
@@ -189,6 +243,8 @@
       [() => makeTaxi(), -1, 0.36, 0.036],
       [() => makeTruck(C.cream), -1, 0.58, 0.019],
       [() => makeTaxi(), -1, 0.82, 0.032],
+      [() => makeMoto(), 1, 0.15, 0.045],
+      [() => makeMoto(), -1, 0.95, 0.042],
     ];
     vs.forEach(([mk, dir, u0, sp]) => {
       const g = mk(); roadGroup.add(g);

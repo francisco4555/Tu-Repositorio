@@ -196,3 +196,9 @@ h1 em{font-family:Georgia,"Times New Roman",serif;font-weight:400}
   html{scroll-behavior:auto}
   *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+.road3d{
+  position:absolute;left:0;bottom:0;width:100%;height:460px;z-index:1;
+  display:block;pointer-events:none
+}
+@media(max-width:850px){.road3d{height:320px}}

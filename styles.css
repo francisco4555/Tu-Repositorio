@@ -342,6 +342,11 @@ a,button,[role="button"]{-webkit-tap-highlight-color:transparent;touch-action:ma
 }
 
 /* ---------- arrow icons (SVG, consistent across devices) ---------- */
-.cta b svg{width:34px;height:34px;display:block}
-.card b svg{width:26px;height:26px;display:block}
-.cta-line b svg{width:15px;height:15px;display:block;vertical-align:-2px}
+.cta b svg{width:26px;height:26px;display:block}
+.card b svg{width:21px;height:21px;display:block}
+.cta-line b svg{width:13px;height:13px;display:block;vertical-align:-2px}
+
+@media(max-width:480px){
+  .cta b{top:auto;right:20px;bottom:20px}
+  .cta b svg{width:20px;height:20px}
+}

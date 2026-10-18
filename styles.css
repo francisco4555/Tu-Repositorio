@@ -182,9 +182,12 @@ h1 em{font-family:Georgia,"Times New Roman",serif;font-weight:400}
   h1{font-size:50px}
   .desc{font-size:15px}
   .cta{width:138px;height:138px}
-  .portrait{top:650px;width:340px}
-  .oval{left:44px;width:252px;height:365px}
-  .role{right:10px}
+  .portrait{top:650px;width:340px;height:360px}
+  .oval{left:75px;width:190px;height:275px}
+  .p1{top:80px}
+  .p2{top:195px}
+  .p3{left:24px;bottom:50px}
+  .role{right:8px;bottom:16px}
 }
 
 @keyframes portraitInMobile{

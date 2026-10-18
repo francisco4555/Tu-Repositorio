@@ -3,96 +3,97 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0f1838">
+  <meta name="theme-color" content="#090d1a">
   <title>JFR — Territorio</title>
-  <meta name="description" content="José Francisco Romero Díaz · Ingeniería, docencia e investigación en movilidad, energía y territorio.">
-  <link rel="stylesheet" href="./styles.css?v=13">
+  <link rel="stylesheet" href="./styles.css?v=7">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-  <script src="./journey3d.js?v=13" defer></script>
-  <script src="./script.js?v=13" defer></script>
+  <script src="./script.js?v=7" defer></script>
+  <script src="./road3d.js?v=7" defer></script>
 </head>
 <body>
-  <div class="sky" aria-hidden="true"></div>
-  <canvas id="world" aria-hidden="true"></canvas>
-
   <header class="site-header">
     <a class="logo" href="#perfil" aria-label="Inicio">JFR<span>.</span></a>
     <div class="tag">INGENIERÍA / DOCENCIA / INVESTIGACIÓN</div>
     <nav aria-label="Navegación principal">
       <a href="#perfil">PERFIL</a>
-      <a href="#movilidad">TRAYECTORIA</a>
+      <a href="#proyectos">PROYECTOS</a>
       <a href="#contacto">CONTACTO</a>
     </nav>
   </header>
 
-  <aside class="rail" aria-label="Progreso del recorrido">
-    <i class="bar"><b></b></i>
-    <a href="#perfil" data-s="perfil"><span>INICIO</span></a>
-    <a href="#movilidad" data-s="movilidad"><span>MOVILIDAD</span></a>
-    <a href="#energia" data-s="energia"><span>ENERGÍA</span></a>
-    <a href="#territorio" data-s="territorio"><span>TERRITORIO</span></a>
-    <a href="#contacto" data-s="contacto"><span>CONTACTO</span></a>
-  </aside>
+  <main class="hero" id="perfil">
+    <div class="ghost" aria-hidden="true">TERRITORIO</div>
 
-  <main>
-    <section class="hero" id="perfil">
-      <div class="copy">
-        <p class="name">JOSÉ FRANCISCO ROMERO DÍAZ</p>
-        <h1>Ideas que<br><em>mueven</em><br>el territorio.</h1>
-        <p class="desc">Una práctica entre infraestructura, energía y paisaje para convertir problemas complejos en decisiones claras.</p>
-        <a class="cta" href="#movilidad"><span>INICIAR<br>RECORRIDO</span><b aria-hidden="true">↘</b></a>
+    <section class="copy">
+      <p class="name">JOSÉ FRANCISCO ROMERO DÍAZ</p>
+      <h1>Ideas que<br><em>mueven</em><br>el territorio.</h1>
+      <p class="desc">
+        Una práctica entre infraestructura, energía y paisaje para convertir
+        problemas complejos en decisiones claras.
+      </p>
+
+      <a class="cta" href="#proyectos">
+        <span>EXPLORAR<br>TRAYECTORIA</span>
+        <b aria-hidden="true">↘</b>
+      </a>
+    </section>
+
+    <section class="portrait" aria-label="Retrato profesional">
+      <div class="oval">
+        <img src="./assets/perfil.jpg" alt="José Francisco Romero Díaz">
       </div>
 
-      <section class="portrait" aria-label="Retrato profesional">
-        <div class="oval"><img src="./assets/perfil.jpg" alt="José Francisco Romero Díaz"></div>
-        <span class="pill p1">MOVILIDAD</span>
-        <span class="pill p2">ENERGÍA</span>
-        <span class="pill p3">TERRITORIO</span>
-        <div class="role">INGENIERO · DOCENTE · INVESTIGADOR</div>
-      </section>
+      <span class="pill p1">MOVILIDAD</span>
+      <span class="pill p2">ENERGÍA</span>
+      <span class="pill p3">TERRITORIO</span>
 
-      <div class="scroll-hint" aria-hidden="true"><i></i>DESLIZA PARA RECORRER</div>
+      <div class="role">INGENIERO · DOCENTE · INVESTIGADOR</div>
     </section>
 
-    <section class="stage left" id="movilidad" data-scene>
-      <article class="panel">
-        <span class="eyebrow">01 — MOVILIDAD</span>
-        <h2>Cómo se mueven las personas y las <em>mercancías</em>.</h2>
-        <p>Infraestructura vial y transporte: tractocamiones, autobuses y taxis compartiendo una misma red. Las decisiones sobre ella definen seguridad, tiempos y costos.</p>
-        <ul class="tags"><li>Infraestructura vial</li><li>Transporte</li><li>Logística</li></ul>
-      </article>
-    </section>
+    <canvas id="road3d" class="road3d" aria-label="Tráfico en 3D: tractocamiones, autobuses, taxis y peatones" role="img"></canvas>
 
-    <section class="stage right" id="energia" data-scene>
-      <article class="panel">
-        <span class="eyebrow">02 — ENERGÍA</span>
-        <h2>Sistemas que sostienen el <em>territorio</em>.</h2>
-        <p>Generación, transmisión y eficiencia: de los parques eólicos y solares a las líneas que llevan la energía hasta la ciudad, con la mirada puesta en la transición.</p>
-        <ul class="tags"><li>Planeación energética</li><li>Eficiencia</li><li>Transición</li></ul>
-      </article>
-    </section>
-
-    <section class="stage left" id="territorio" data-scene>
-      <article class="panel">
-        <span class="eyebrow">03 — TERRITORIO</span>
-        <h2>La ciudad como resultado de <em>decisiones</em>.</h2>
-        <p>Análisis del espacio construido y del paisaje para convertir problemas complejos en decisiones claras: dónde se vive, cómo se llega y qué se comparte.</p>
-        <ul class="tags"><li>Planeación</li><li>Espacio público</li><li>Paisaje</li></ul>
-      </article>
-    </section>
-
-    <section class="contact" id="contacto" data-scene>
-      <div class="end">
-        <span class="eyebrow">04 — CONTACTO</span>
-        <h2>¿Construimos algo <em>juntos</em>?</h2>
-        <a class="cta-line" href="https://github.com/francisco4555" target="_blank" rel="noopener">Ver mi trabajo en GitHub <b aria-hidden="true">↗</b></a>
-      </div>
-      <footer class="foot">
-        <span>JFR<i>.</i></span>
-        <span>© 2026 José Francisco Romero Díaz</span>
-        <span>INGENIERÍA / DOCENCIA / INVESTIGACIÓN</span>
-      </footer>
-    </section>
+    <div class="scroll-hint" aria-hidden="true"><i></i>DESLIZA</div>
   </main>
+
+  <section class="lines" id="proyectos">
+    <div class="sec-head reveal">
+      <span class="eyebrow">01 — LÍNEAS DE TRABAJO</span>
+      <h2>Tres frentes, una misma <em>mirada</em> sobre el territorio.</h2>
+    </div>
+    <div class="cards">
+      <article class="card reveal">
+        <span class="num">01</span>
+        <h3>Movilidad</h3>
+        <p>Infraestructura vial y transporte: cómo se mueven personas y mercancías, y qué decisiones lo hacen más seguro y eficiente.</p>
+        <b aria-hidden="true">↗</b>
+      </article>
+      <article class="card reveal">
+        <span class="num">02</span>
+        <h3>Energía</h3>
+        <p>Sistemas energéticos y su relación con el entorno: planeación, eficiencia y transición hacia modelos más sostenibles.</p>
+        <b aria-hidden="true">↗</b>
+      </article>
+      <article class="card reveal">
+        <span class="num">03</span>
+        <h3>Territorio</h3>
+        <p>Análisis del paisaje y del espacio construido para convertir problemas complejos en decisiones claras.</p>
+        <b aria-hidden="true">↗</b>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact" id="contacto">
+    <div class="reveal">
+      <span class="eyebrow">02 — CONTACTO</span>
+      <h2>¿Construimos algo <em>juntos</em>?</h2>
+    </div>
+    <a class="cta-line reveal" href="https://github.com/francisco4555" target="_blank" rel="noopener">Ver mi trabajo en GitHub <b aria-hidden="true">↗</b></a>
+  </section>
+
+  <footer class="foot">
+    <span>JFR<i>.</i></span>
+    <span>© 2026 José Francisco Romero Díaz</span>
+    <span>INGENIERÍA / DOCENCIA / INVESTIGACIÓN</span>
+  </footer>
 </body>
 </html>

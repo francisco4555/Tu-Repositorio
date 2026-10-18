@@ -254,3 +254,37 @@ h2 em{font-family:Georgia,"Times New Roman",serif;font-weight:400}
   .foot{padding:22px}
 }
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+/* ================= DUSK THEME ================= */
+:root{--bg:#090d1a;--ink:#f4f1ea;--outline:rgba(255,255,255,.1)}
+html,body{background:#090d1a;color:#f4f1ea}
+.site-header{background:rgba(9,13,26,.72);border-bottom:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px)}
+nav a:after{background:#fff}
+.hero{background:
+  radial-gradient(ellipse 55% 38% at 28% 100%,rgba(255,110,50,.55),transparent 70%),
+  radial-gradient(ellipse 40% 30% at 85% 100%,rgba(120,90,220,.35),transparent 70%),
+  linear-gradient(180deg,#060913 0%,#0f1838 42%,#3b2c52 75%,#b4533a 100%)}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.8;
+  background-image:radial-gradient(1.2px 1.2px at 8% 14%,#fff,transparent),radial-gradient(1px 1px at 22% 30%,#fff,transparent),radial-gradient(1.4px 1.4px at 41% 12%,#fff,transparent),radial-gradient(1px 1px at 58% 26%,#fff,transparent),radial-gradient(1.2px 1.2px at 73% 10%,#fff,transparent),radial-gradient(1px 1px at 90% 22%,#fff,transparent),radial-gradient(1px 1px at 33% 44%,#fff,transparent),radial-gradient(1.2px 1.2px at 66% 40%,#fff,transparent);
+  animation:twinkle 5s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.45}to{opacity:.9}}
+.ghost{-webkit-text-stroke:1px rgba(255,255,255,.1)}
+.hero .copy .name:before{background:#fff}
+h1,.name{color:#fff}
+h1 em{color:#ff8a5c}
+.desc{color:rgba(244,241,234,.82)}
+.pill{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.35);color:#fff;backdrop-filter:blur(8px);box-shadow:none}
+.oval{border-color:rgba(255,255,255,.55);box-shadow:0 0 100px rgba(255,87,41,.4)}
+.portrait:after{border-color:rgba(255,255,255,.35)}
+.role{background:var(--orange);color:#fff}
+.scroll-hint{color:#fff}.scroll-hint i{background:#fff}
+.road3d{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 24%);mask-image:linear-gradient(to bottom,transparent 0,#000 24%)}
+.lines,.contact{border-top-color:rgba(255,255,255,.14)}
+.lines{background:linear-gradient(180deg,#090d1a,#0d1226)}
+.card{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.04);backdrop-filter:blur(6px)}
+.card:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+.card:hover .num,.card:hover b{color:#fff}
+.contact{background:linear-gradient(120deg,#ff5729,#b8341a)}
+.contact h2 em{color:#0a0a0a}
+.cta-line{border-bottom-color:#fff}.cta-line:hover{color:#0a0a0a}
+.foot{background:#05070f}

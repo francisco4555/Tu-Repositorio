@@ -11,9 +11,9 @@
   const scene = new T.Scene();
   const camera = new T.PerspectiveCamera(26, 1, 1, 700);
 
-  scene.add(new T.HemisphereLight(0xfff8ee, 0xb9b09c, 0.8));
-  const sun = new T.DirectionalLight(0xfff1dc, 0.95);
-  sun.position.set(-45, 70, 40);
+  scene.add(new T.HemisphereLight(0x8fa6ff, 0x2a2438, 0.75));
+  const sun = new T.DirectionalLight(0xffa86b, 0.9);
+  sun.position.set(-70, 28, 30);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
   sun.shadow.bias = -0.0004;
@@ -78,7 +78,33 @@
     [-1, 1].forEach(s => {
       const f = new T.Mesh(new T.BoxGeometry(0.1, 0.2, 0.42), lamp(0xfff6c9)); f.position.set(fx, y, s * (w / 2 - 0.35)); g.add(f);
       const b = new T.Mesh(new T.BoxGeometry(0.1, 0.2, 0.36), lamp(C.red)); b.position.set(rx, y, s * (w / 2 - 0.3)); g.add(b);
+      sprite(glowTex, 2.2, fx + 0.2, y, s * (w / 2 - 0.35), g);
+      sprite(redTex, 1.6, rx - 0.1, y, s * (w / 2 - 0.3), g);
     });
+    const cone = new T.Mesh(new T.PlaneGeometry(9, w * 1.5), new T.MeshBasicMaterial({ map: beamTex, blending: T.AdditiveBlending, depthWrite: false, transparent: true }));
+    cone.rotation.x = -Math.PI / 2; cone.position.set(fx + 4.6, 0.1, 0); g.add(cone);
+  }
+
+  // ---------- glow ----------
+  function radial(stops) {
+    const c = document.createElement('canvas'); c.width = c.height = 128;
+    const x = c.getContext('2d'), g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+    stops.forEach(([o, col]) => g.addColorStop(o, col));
+    x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+    return new T.CanvasTexture(c);
+  }
+  const glowTex = radial([[0, 'rgba(255,230,170,1)'], [0.3, 'rgba(255,190,100,.45)'], [1, 'rgba(255,160,60,0)']]);
+  const redTex = radial([[0, 'rgba(255,70,60,1)'], [0.35, 'rgba(255,40,40,.4)'], [1, 'rgba(255,0,0,0)']]);
+  const beamTex = (() => {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 128;
+    const x = c.getContext('2d'), g = x.createLinearGradient(0, 0, 256, 0);
+    g.addColorStop(0, 'rgba(255,236,180,.75)'); g.addColorStop(1, 'rgba(255,220,140,0)');
+    x.fillStyle = g; x.beginPath(); x.moveTo(0, 44); x.lineTo(256, 0); x.lineTo(256, 128); x.lineTo(0, 84); x.closePath(); x.fill();
+    return new T.CanvasTexture(c);
+  })();
+  function sprite(tex, size, x, y, z, parent) {
+    const sp = new T.Sprite(new T.SpriteMaterial({ map: tex, blending: T.AdditiveBlending, depthWrite: false, transparent: true }));
+    sp.scale.set(size, size, 1); sp.position.set(x, y, z); parent.add(sp); return sp;
   }
 
   // ---------- vehicles (forward = +X) ----------
@@ -199,9 +225,9 @@
   function facade(dark) {
     const c = document.createElement('canvas'); c.width = 128; c.height = 128;
     const x = c.getContext('2d');
-    x.fillStyle = dark ? '#2a3442' : '#e7e3d8'; x.fillRect(0, 0, 128, 128);
+    x.fillStyle = dark ? '#161d2e' : '#1f2638'; x.fillRect(0, 0, 128, 128);
     for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
-      x.fillStyle = dark ? (Math.random() > 0.8 ? '#ffd98a' : '#4c6a8a') : '#7d93aa';
+      x.fillStyle = Math.random() > (dark ? 0.45 : 0.6) ? '#ffc874' : '#2d3c5a';
       x.fillRect(i * 32 + 5, j * 32 + 6, 22, 20);
     }
     const t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = 4;
@@ -248,18 +274,18 @@
     curveLen = curve.getLength();
     const S = 240;
 
-    const ground = new T.Mesh(new T.PlaneGeometry(W * 2.4, 140), new T.ShadowMaterial({ opacity: 0.16 }));
+    const ground = new T.Mesh(new T.PlaneGeometry(W * 2.4, 140), new T.ShadowMaterial({ opacity: 0.4 }));
     ground.rotation.x = -Math.PI / 2; ground.position.y = -0.02; ground.receiveShadow = true;
     roadGroup.add(ground);
 
-    roadGroup.add(ribbon(curve, -6.2, 6.2, 0.0, flat(0xcfcabd), S));
-    roadGroup.add(ribbon(curve, -4.4, 4.4, 0.03, flat(0x4a4b4e), S));
-    roadGroup.add(ribbon(curve, -4.25, -4.1, 0.05, flat(0xf2f0ea), S));
-    roadGroup.add(ribbon(curve, 4.1, 4.25, 0.05, flat(0xf2f0ea), S));
-    roadGroup.add(ribbon(curve, -6.0, -4.4, 0.14, flat(0xeeeae0), S));
-    roadGroup.add(ribbon(curve, 4.4, 6.0, 0.14, flat(0xeeeae0), S));
-    roadGroup.add(ribbon(curve, -4.5, -4.4, 0.145, flat(0xbdb8aa), S));
-    roadGroup.add(ribbon(curve, 4.4, 4.5, 0.145, flat(0xbdb8aa), S));
+    roadGroup.add(ribbon(curve, -6.2, 6.2, 0.0, flat(0x2a2c36), S));
+    roadGroup.add(ribbon(curve, -4.4, 4.4, 0.03, flat(0x34363f), S));
+    roadGroup.add(ribbon(curve, -4.25, -4.1, 0.05, flat(0xbfc3cc), S));
+    roadGroup.add(ribbon(curve, 4.1, 4.25, 0.05, flat(0xbfc3cc), S));
+    roadGroup.add(ribbon(curve, -6.0, -4.4, 0.14, flat(0x6d7080), S));
+    roadGroup.add(ribbon(curve, 4.4, 6.0, 0.14, flat(0x6d7080), S));
+    roadGroup.add(ribbon(curve, -4.5, -4.4, 0.145, flat(0x8a8d9c), S));
+    roadGroup.add(ribbon(curve, 4.4, 4.5, 0.145, flat(0x8a8d9c), S));
 
     const dashes = Math.floor(curveLen / 3.4);
     const dashM = new T.MeshBasicMaterial({ color: 0xf6d35b });
@@ -270,7 +296,7 @@
       d.position.set(p.x, 0.055, p.z);
       roadGroup.add(d);
     }
-    const zebra = new T.MeshBasicMaterial({ color: 0xf2f0ea });
+    const zebra = new T.MeshBasicMaterial({ color: 0xcfd3dc });
     [0.3, 0.72].forEach(u => {
       const p = curve.getPointAt(u), t = curve.getTangentAt(u), ang = Math.atan2(t.z, t.x);
       for (let k = -3; k <= 3; k++) {
@@ -288,11 +314,11 @@
     };
     for (let i = 0; i < 12; i++) {
       const u = 0.03 + (i / 12) * 0.95, q = at(u, 11.5 + Math.random() * 3);
-      const w = 4 + Math.random() * 2.2, d = 4 + Math.random() * 2, h = 3 + Math.random() * 4.5;
+      const w = 4 + Math.random() * 2.2, d = 4 + Math.random() * 2, h = 3.5 + Math.random() * 6;
       const dark = Math.random() > 0.55;
       const tex = facadeTex[dark ? 1 : 0].clone(); tex.needsUpdate = true; tex.repeat.set(w / 4, h / 4);
-      const side = new T.MeshStandardMaterial({ map: tex, roughness: 0.6, metalness: 0.1 });
-      const roof = mat(0xd9d5ca, 0.8, 0);
+      const side = new T.MeshStandardMaterial({ map: tex, emissiveMap: tex, emissive: 0xffffff, emissiveIntensity: 0.55, roughness: 0.6, metalness: 0.1 });
+      const roof = mat(0x3a4053, 0.8, 0);
       const b = new T.Group();
       const body = new T.Mesh(new T.BoxGeometry(w, h, d), [side, side, roof, roof, side, side]);
       body.position.y = h / 2; body.castShadow = true; body.receiveShadow = true; b.add(body);
@@ -319,7 +345,8 @@
       const lp = new T.Group();
       cyl(0.08, 0.13, 4.6, mat(0x2a2d31, 0.5, 0.6), 0, 2.3, 0, lp, 8);
       box(1.4, 0.12, 0.16, mat(0x2a2d31, 0.5, 0.6), -side * 0.65, 4.6, 0, lp);
-      box(0.5, 0.12, 0.3, lamp(0xfff0c0), -side * 1.3, 4.52, 0, lp);
+      box(0.5, 0.12, 0.3, lamp(0xffe3a0), -side * 1.3, 4.52, 0, lp);
+      sprite(glowTex, 7, -side * 1.3, 4.4, 0, lp);
       lp.position.set(q.x, 0.14, q.z); lp.rotation.y = -q.ang;
       roadGroup.add(lp);
     }
@@ -331,7 +358,7 @@
       });
       [4.5, 7.0].forEach(y => box(1.7, 0.1, 1.7, steel, 0, y, 0, py));
       box(8, 0.2, 0.2, steel, 0, 9.0, 0, py); box(5.4, 0.2, 0.2, steel, 0, 7.8, 0, py);
-      [-3.8, 3.8].forEach(x => cyl(0.12, 0.12, 0.7, mat(0xdfe6ee, 0.2, 0.2), x, 8.6, 0, py, 8));
+      [-3.8, 3.8].forEach(x => { cyl(0.12, 0.12, 0.7, mat(0xdfe6ee, 0.2, 0.2), x, 8.6, 0, py, 8); sprite(redTex, 2.4, x, 9.4, 0, py); });
       py.position.set(q.x, 0, q.z); py.rotation.y = -q.ang;
       roadGroup.add(py);
     });

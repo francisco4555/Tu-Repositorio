@@ -194,9 +194,9 @@
       const p = curve.getPointAt(u), t = curve.getTangentAt(u);
       return { x: p.x + t.z * off, z: p.z - t.x * off, ang: Math.atan2(t.z, t.x) };
     };
-    for (let i = 0; i < 26; i++) {
-      const u = 0.02 + (i / 26) * 0.96, q = at(u, 10.5 + Math.random() * 3);
-      const w = 4 + Math.random() * 3, d = 4 + Math.random() * 2.5, h = 3 + Math.random() * 5.5;
+    for (let i = 0; i < 12; i++) {
+      const u = 0.02 + (i / 12) * 0.96, q = at(u, 11 + Math.random() * 3);
+      const w = 3.5 + Math.random() * 2, d = 3.5 + Math.random() * 2, h = 2.5 + Math.random() * 3.5;
       const b = new T.Group();
       box(w, h, d, pal[Math.random() * pal.length | 0], 0, h / 2, 0, b);
       box(w + 0.3, 0.3, d + 0.3, C.ink, 0, h + 0.15, 0, b);
@@ -204,8 +204,8 @@
       b.position.set(q.x, 0, q.z); b.rotation.y = -q.ang;
       roadGroup.add(b);
     }
-    for (let i = 0; i < 34; i++) {
-      const side = i % 2 ? 1 : -1, q = at((i + 0.5) / 34, side * (7.2 + Math.random() * 0.8));
+    for (let i = 0; i < 16; i++) {
+      const side = i % 2 ? 1 : -1, q = at((i + 0.5) / 16, side * (7.2 + Math.random() * 0.8));
       const tr = new T.Group();
       box(0.3, 1.6, 0.3, 0x6b4a2a, 0, 0.8, 0, tr);
       const k = new T.Mesh(new T.IcosahedronGeometry(1.3 + Math.random() * 0.5, 0), mat([0x2f8f5b, 0x3fa56a, 0x5bb36e][i % 3]));
@@ -213,8 +213,8 @@
       tr.position.set(q.x, 0, q.z);
       roadGroup.add(tr);
     }
-    for (let i = 0; i < 12; i++) {
-      const side = i % 2 ? 1 : -1, q = at((i + 0.3) / 12, side * 5.3);
+    for (let i = 0; i < 8; i++) {
+      const side = i % 2 ? 1 : -1, q = at((i + 0.3) / 8, side * 5.3);
       const lp = new T.Group();
       box(0.18, 4.2, 0.18, C.ink, 0, 2.1, 0, lp);
       box(1.3, 0.16, 0.2, C.ink, -side * 0.6, 4.2, 0, lp);
@@ -222,7 +222,7 @@
       lp.position.set(q.x, 0, q.z); lp.rotation.y = -q.ang;
       roadGroup.add(lp);
     }
-    [0.18, 0.5, 0.84].forEach(u => {
+    [0.25, 0.8].forEach(u => {
       const q = at(u, 8.2), py = new T.Group();
       box(0.35, 9, 0.35, C.orange, -0.8, 4.5, -0.8, py); box(0.35, 9, 0.35, C.orange, 0.8, 4.5, -0.8, py);
       box(0.35, 9, 0.35, C.orange, -0.8, 4.5, 0.8, py); box(0.35, 9, 0.35, C.orange, 0.8, 4.5, 0.8, py);
@@ -277,7 +277,7 @@
     const w = Math.max(1, r.width), h = Math.max(1, r.height);
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    W = w < 560 ? 55 : w < 1000 ? 75 : 95;
+    W = w < 560 ? 70 : w < 1000 ? 105 : 125;
     const d = W / (2 * Math.tan(T.MathUtils.degToRad(camera.fov / 2)) * camera.aspect);
     const el = T.MathUtils.degToRad(46);
     camera.userData.base = new T.Vector3(0, d * Math.sin(el), d * Math.cos(el));

@@ -202,3 +202,55 @@ h1 em{font-family:Georgia,"Times New Roman",serif;font-weight:400}
   display:block;pointer-events:none
 }
 @media(max-width:850px){.road3d{height:320px}}
+
+/* ---------- refinement ---------- */
+.site-header{position:sticky;top:0;transition:box-shadow .3s ease}
+.logo{transition:transform .3s ease}.logo:hover{transform:translateY(-1px)}
+nav a{padding:6px 0}
+.hero .copy .name:before{content:"";display:inline-block;width:34px;height:1px;background:#111;vertical-align:middle;margin-right:14px}
+.pill{box-shadow:0 8px 20px rgba(0,0,0,.06)}
+.oval{box-shadow:0 30px 60px rgba(0,0,0,.18)}
+.scroll-hint{position:absolute;left:46px;bottom:26px;z-index:5;font-size:10px;letter-spacing:3px;display:flex;align-items:center;gap:12px}
+.scroll-hint i{display:block;width:1px;height:38px;background:#111;transform-origin:top;animation:hint 1.8s ease-in-out infinite}
+@keyframes hint{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+@media(min-width:851px){
+  .hero{height:880px;min-height:0;padding-top:190px}
+  .ghost{top:70px}
+  .portrait{top:95px}
+  .road3d{height:470px}
+}
+
+.lines,.contact{padding:90px 46px;border-top:1px solid #222;position:relative}
+.eyebrow{display:block;font-size:11px;letter-spacing:3px;font-weight:700;margin-bottom:26px}
+h2{font-size:42px;line-height:.98;letter-spacing:-2px;margin:0;font-weight:800;max-width:760px}
+h2 em{font-family:Georgia,"Times New Roman",serif;font-weight:400}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+.card{position:relative;border:1px solid #111;border-radius:26px;padding:34px 30px 40px;min-height:240px;
+  background:var(--bg);transition:transform .35s cubic-bezier(.22,1,.36,1),background .35s ease,color .35s ease,box-shadow .35s ease}
+.card:hover{transform:translateY(-8px);background:#0b0b0b;color:#fff;box-shadow:0 28px 50px rgba(0,0,0,.18)}
+.card .num{font-size:11px;letter-spacing:3px;color:var(--orange);font-weight:700}
+.card h3{font-size:30px;letter-spacing:-1.5px;margin:48px 0 14px}
+.card p{margin:0;line-height:1.55;font-size:15px;max-width:340px;opacity:.85}
+.card b{position:absolute;right:26px;top:24px;font-size:26px;transition:transform .3s ease}
+.card:hover b{transform:translate(5px,-5px);color:var(--orange)}
+.contact{background:#0b0b0b;color:#fff;border-top:0;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+.contact h2 em{color:var(--orange)}
+.cta-line{color:#fff;text-decoration:none;font-size:15px;letter-spacing:2px;border-bottom:1px solid var(--orange);padding-bottom:10px;transition:color .3s}
+.cta-line:hover{color:var(--orange)}
+.cta-line b{display:inline-block;margin-left:8px;transition:transform .3s}
+.cta-line:hover b{transform:translate(4px,-4px)}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:26px 46px;font-size:10px;letter-spacing:2px;background:#0b0b0b;color:#9a978f;border-top:1px solid #2a2a2a}
+.foot i{color:var(--orange);font-style:normal}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.cards .reveal:nth-child(2){transition-delay:.1s}.cards .reveal:nth-child(3){transition-delay:.2s}
+@media(max-width:850px){
+  .lines,.contact{padding:80px 22px}
+  h2{font-size:40px;letter-spacing:-2px}
+  .cards{grid-template-columns:1fr;margin-top:44px}
+  .card{min-height:240px}.card h3{margin-top:44px}
+  .scroll-hint{display:none}
+  .foot{padding:22px}
+}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}

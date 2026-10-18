@@ -1,40 +1,22 @@
 (() => {
-  const portrait = document.querySelector('.portrait');
-  const hero = document.querySelector('.hero');
-
-  if (!portrait || !hero) return;
-
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const mobile = window.matchMedia('(max-width: 850px)').matches;
-  if (reduced || mobile) return;
-
-  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-
-  hero.addEventListener('pointermove', (e) => {
-    const r = hero.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    targetX = x * 14;
-    targetY = y * 10;
-  });
-
-  hero.addEventListener('pointerleave', () => {
-    targetX = 0;
-    targetY = 0;
-  });
-
-  function animate() {
-    currentX += (targetX - currentX) * 0.08;
-    currentY += (targetY - currentY) * 0.08;
-    portrait.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-    requestAnimationFrame(animate);
+  /* portrait parallax (desktop) */
+  const portrait = document.querySelector('.portrait'), hero = document.querySelector('.hero');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (portrait && hero && !reduced && !matchMedia('(max-width: 850px)').matches) {
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); tx = ((e.clientX - r.left) / r.width - .5) * 14; ty = ((e.clientY - r.top) / r.height - .5) * 10; });
+    hero.addEventListener('pointerleave', () => { tx = ty = 0; });
+    (function loop() { cx += (tx - cx) * .08; cy += (ty - cy) * .08; portrait.style.transform = `translate3d(${cx}px,${cy}px,0)`; requestAnimationFrame(loop); })();
   }
-  requestAnimationFrame(animate);
-})();
 
-(() => {
-  const els = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
-  els.forEach(e => io.observe(e));
+  /* panels reveal + rail state */
+  const rail = [...document.querySelectorAll('.rail a')];
+  const set = id => rail.forEach(a => a.classList.toggle('on', a.dataset.s === id));
+  set('perfil');
+  if (!('IntersectionObserver' in window)) { document.querySelectorAll('.stage').forEach(s => s.classList.add('in')); return; }
+  const secs = [...document.querySelectorAll('#perfil,[data-scene]')];
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); set(e.target.id); }
+  }), { rootMargin: '-45% 0px -45% 0px' });
+  secs.forEach(s => io.observe(s));
 })();

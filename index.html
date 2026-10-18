@@ -2,19 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#090d1a">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Portafolio de José Francisco Romero Díaz — ingeniería, docencia e investigación en movilidad, energía y territorio.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="JFR Territorio">
   <title>JFR — Territorio</title>
-  <link rel="stylesheet" href="./styles.css?v=7">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="./styles.css?v=8">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-  <script src="./script.js?v=7" defer></script>
-  <script src="./road3d.js?v=7" defer></script>
+  <script src="./script.js?v=8" defer></script>
+  <script src="./road3d.js?v=8" defer></script>
 </head>
 <body>
   <header class="site-header">
     <a class="logo" href="#perfil" aria-label="Inicio">JFR<span>.</span></a>
     <div class="tag">INGENIERÍA / DOCENCIA / INVESTIGACIÓN</div>
-    <nav aria-label="Navegación principal">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menú de navegación">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="site-nav" aria-label="Navegación principal">
       <a href="#perfil">PERFIL</a>
       <a href="#proyectos">PROYECTOS</a>
       <a href="#contacto">CONTACTO</a>

@@ -3,9 +3,10 @@
   if (!canvas || !window.THREE) return;
   const T = THREE;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobile = matchMedia('(pointer: coarse)').matches || matchMedia('(max-width: 700px)').matches;
 
-  const renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  const renderer = new T.WebGLRenderer({ canvas, antialias: !mobile, alpha: true, powerPreference: mobile ? 'low-power' : 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, mobile ? 1.5 : 2));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = T.PCFSoftShadowMap;
   const scene = new T.Scene();
@@ -15,7 +16,7 @@
   const sun = new T.DirectionalLight(0xffa86b, 0.9);
   sun.position.set(-70, 28, 30);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.mapSize.set(mobile ? 1024 : 2048, mobile ? 1024 : 2048);
   sun.shadow.bias = -0.0004;
   sun.shadow.radius = 3;
   scene.add(sun, sun.target);

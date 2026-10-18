@@ -288,3 +288,55 @@ h1 em{color:#ff8a5c}
 .contact h2 em{color:#0a0a0a}
 .cta-line{border-bottom-color:#fff}.cta-line:hover{color:#0a0a0a}
 .foot{background:#05070f}
+
+/* ================= MOBILE & DEVICE INTEGRATION ================= */
+
+/* ---------- safe areas (viewport-fit=cover) ---------- */
+.site-header{
+  height:auto;
+  min-height:calc(82px + env(safe-area-inset-top));
+  padding-top:env(safe-area-inset-top);
+}
+.contact{padding-bottom:calc(90px + env(safe-area-inset-bottom))}
+.foot{padding-bottom:calc(26px + env(safe-area-inset-bottom))}
+
+/* ---------- tap behavior ---------- */
+a,button,[role="button"]{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+
+/* ---------- mobile navigation (hamburger) ---------- */
+.menu-toggle{
+  display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  width:44px;height:44px;margin-left:auto;padding:0;background:none;border:0;cursor:pointer;
+}
+.menu-toggle span{
+  display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;
+  transition:transform .3s ease,opacity .3s ease;
+}
+.site-header.nav-open .menu-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.site-header.nav-open .menu-toggle span:nth-child(2){opacity:0}
+.site-header.nav-open .menu-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media(max-width:850px){
+  .site-header{min-height:calc(72px + env(safe-area-inset-top));background:rgba(9,13,26,.97);backdrop-filter:none}
+  .menu-toggle{display:flex}
+  .logo,.menu-toggle{position:relative;z-index:60}
+  #site-nav{
+    position:fixed;inset:0;z-index:50;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    padding:calc(84px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));
+    background:rgba(9,13,26,.97);backdrop-filter:blur(14px);
+    opacity:0;visibility:hidden;transform:translateY(-14px);
+    transition:opacity .3s ease,visibility .3s ease,transform .3s ease;
+  }
+  .site-header.nav-open #site-nav{opacity:1;visibility:visible;transform:none}
+  #site-nav a{font-size:20px;letter-spacing:3px;padding:15px 24px;width:min(320px,100%);text-align:center;border-radius:14px}
+  #site-nav a:active,#site-nav a:hover{background:rgba(255,255,255,.07)}
+  body.nav-open{overflow:hidden}
+}
+
+/* ---------- avoid sticky hover on touch ---------- */
+@media(hover:none){
+  .card:hover{transform:none;background:rgba(255,255,255,.04);color:var(--ink);border-color:rgba(255,255,255,.2);box-shadow:none}
+  .card:hover .num{color:var(--orange)}
+  .card:hover b{transform:none;color:var(--ink)}
+}

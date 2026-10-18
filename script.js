@@ -38,3 +38,29 @@
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
   els.forEach(e => io.observe(e));
 })();
+
+/* ---------- mobile navigation ---------- */
+(() => {
+  const header = document.querySelector('.site-header');
+  const toggle = document.querySelector('.menu-toggle');
+  if (!header || !toggle) return;
+
+  const setOpen = (open) => {
+    header.classList.toggle('nav-open', open);
+    document.body.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+  };
+
+  toggle.addEventListener('click', () => setOpen(!header.classList.contains('nav-open')));
+
+  header.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && header.classList.contains('nav-open')) setOpen(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 850 && header.classList.contains('nav-open')) setOpen(false);
+  });
+})();

@@ -340,3 +340,8 @@ a,button,[role="button"]{-webkit-tap-highlight-color:transparent;touch-action:ma
   .card:hover .num{color:var(--orange)}
   .card:hover b{transform:none;color:var(--ink)}
 }
+
+/* ---------- arrow icons (SVG, consistent across devices) ---------- */
+.cta b svg{width:34px;height:34px;display:block}
+.card b svg{width:26px;height:26px;display:block}
+.cta-line b svg{width:15px;height:15px;display:block;vertical-align:-2px}
